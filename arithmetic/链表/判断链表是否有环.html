@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        function LinkedLine() {
+            this.head = null
+            this.length = 0
+
+            this.append = append;
+            this.search = search;
+            this.has = has;
+
+        }
+        function Node(data) {
+            this.data = data
+            this.next = null
+        }
+
+        function append (data) {
+            // 创建一个新的节点
+            let newNode = new Node(data)
+            // 判断是不是第一个节点
+            if (this.length === 0) {//是第一个节点
+                this.head = newNode
+            } else {//不是是第一个节点
+                let current = this.head
+                while (current.next) {
+                    current = current.next
+                }
+                //最后一个节点next指向新的节点
+                current.next = newNode
+            }
+            //长度+1
+            this.length += 1
+        }
+        function search(data) {
+            let current = this.head
+            while (current) {
+                if (current.data === data) {
+                    return current
+                }
+                current = current.next
+            }
+            return null;
+        }
+        function has() {
+            let current = this.head
+            if (!current || !current.next) return false
+            while (current) {
+                if (current.flag) {
+                    return true
+                }
+                current.flag = true
+                current = current.next
+            }
+            return false
+        }
+
+        let list = new LinkedLine()
+        list.append('1')
+        list.append('2')
+        list.append('3')
+        list.append('4')
+        // list.append('2')
+        // list.append('3')
+        // list.append('4')
+        list.append('5')
+        list.append('6')
+        list.search("4").next = list.search("2");
+        console.log(list)
+        console.log(list.has());
+
+    </script>
+</body>
+</html>

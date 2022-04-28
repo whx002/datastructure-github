@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // function isPrime(num) {
+        //     for (let i = 0; i < num; i++){
+        //         if (num % 2 === 0){
+        //             return false
+        //         }
+        //     } turn true
+        // }
+
+        //高效查找
+        function isPrime(num) {
+            let temp = parseInt(Math.sqrt(num))
+            for (let i = 0; i < temp; i++){
+                if (num % 2 === 0){
+                    return false
+                }
+            }
+            return true
+        }
+
+    </script>
+</body>
+</html>

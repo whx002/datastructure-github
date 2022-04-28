@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文本效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        body {
+            background-color: #0f0f0f;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mywords {
+            color: #fff;
+            font-size: 1.5em;
+            line-height: 1.8em;
+            margin: 0 1em;
+
+        }
+
+        .mywords span {
+            animation: lightin 0.8s both;
+            
+        }
+        /* from 0% */
+
+        @keyframes lightin {
+            from {
+                opacity: 0;
+            }
+
+            65% {
+                opacity: 1;
+                text-shadow: 0 0 20px #fff;
+            }
+
+            75% {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0.7;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <p class="mywords">
+        喜欢一个人是藏不住的，即使嘴巴不说，也会从眼睛里跑出来。我喜欢你，认真且怂，从一而终。</br>
+    </p>
+
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $(function()
+        {
+            var words=$(".mywords").text().split("");
+            $(".mywords").empty();
+            words.forEach((w,i)=>{
+                $(`<span>${w}</span>`)
+                .css({
+                    "animation-delay": 0.05*i+'s'
+                })
+                .appendTo($(".mywords"));
+            })
+        })
+    </script>
+</body>
+
+</html>

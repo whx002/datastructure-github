@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function clone(data){
+        let container;
+        let type = get(data);
+        if (type === "Object"){
+            container = {}
+        }
+        if (type === "Array"){
+            container = []
+        }
+        for (const i in data) {
+            let type = get(data[i]);
+            if (type === "Object" || type === "Array"){
+                container[i] = clone(data[i])
+            }else if (type === "Function"){
+                container[i] = data[i].bind(container);
+            }else {
+                container[i] = data[i]
+            }
+        }
+        return container
+    }
+    let obj = {
+        name : '武海鑫',
+        age : 18,
+        big : [1,2,3,4,5],
+        vivo:{
+            price : 2000,
+            color : "pick"
+        },
+        sun(){
+            console.log("hahaha")
+        }
+    }
+
+
+    let result = clone(obj);
+    console.log(result);
+
+    function get(data){
+
+        return Object.prototype.toString.call(data).slice(8,-1)
+
+    }
+
+
+
+// 下面方法更为简单
+
+    function deepClone(o) {
+        if (Array.isArray(o)) {
+            // 如果o是数组
+            let result = [];
+            for (let i = 0; i < o.length; i++) {
+                result.push(deepClone(o[i]));
+            }
+            return result;
+        } else if (typeof o == 'object') {
+            // 如果o是对象
+            let result = {};
+            for (let k in o) {
+                result[k] = deepClone(o[k]);
+            }
+            return result;
+        } else {
+            // 如果o是基本类型值
+            return o;
+        }
+    }
+
+    var arr1 = [1, 2, 3, 4, { a: 88, b: [99, 100] }];
+    var arr2 = deepClone(arr1);
+
+    arr1[4].a ++;
+    console.log(arr2);
+
+</script>
+</body>
+</html>

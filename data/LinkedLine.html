@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function LinkedLine(){
+        function Node(data){
+            this.data = data
+            this.next =null
+        }
+        this.head = null
+        this.length = 0
+        LinkedLine.prototype.append = function (data){
+            // 创建一个新的节点
+            let newNode =new Node(data)
+            // 判断是不是第一个节点
+            if(this.length === 0){//是第一个节点
+                this.head = newNode
+            }else{//不是是第一个节点
+                let current = this.head
+                while (current.next){
+                    current = current.next
+                }
+                //最后一个节点next指向新的节点
+                current.next = newNode
+            }
+            //长度+1
+            this.length += 1
+        }
+        LinkedLine.prototype.toString = function (){
+            //定义变量
+            let current = this.head
+            let listString = " "
+            //循环获取一个个的节点
+            while (current){
+                current += current.data + " "
+                current = current.next
+            }
+            return listString
+        }
+        LinkedLine.prototype.insert = function (position,data){
+            // 对position进行越界判断，不能为负数，不能大于链表的长度
+            if (position < 0 || position > this.length) return false
+            // 创建新的节点
+            let newNode = new Node(data)
+            // 判断是否是第一个元素
+            if (position === 0){
+                newNode.next = this.head // this.head 指向与原来的节点
+                this.head = newNode
+            }else {
+                let index = 0
+                let current = this.head
+                let previous = null
+                while (index++ < position){
+                    previous =current
+                    current = current.next
+                }
+                newNode.next = current
+                previous.next = newNode
+
+            }
+            this.length += 1
+            return true
+        }
+        LinkedLine.prototype.get = function (position){
+            if (position < 0 || position >= this.length) return null
+            let current = this.head
+            let index = 0
+            while (index++ < position){
+                current = current.next
+            }
+            return current.data
+        }
+        LinkedLine.prototype.indexOf = function (data){
+            let current = this.head
+            let index = 0
+            while (current){
+                if (current.data === data){
+                    return index
+                }
+                current = current.next
+                index += 1
+            }
+            return -1
+        }
+        LinkedLine.prototype.update = function (position,newData){
+            if (position < 0 || position >= this.length) return false
+            let current = this.head
+            let index = 0
+            while (index++ < position){
+                current = current.next
+            }
+            current.data = newData
+            return true
+        }
+        LinkedLine .prototype.removeAt = function (position){
+            if (position < 0 || position >= this.length) return null;
+            let current = this.head
+            if (position===0){
+                this.head = this.head.next
+            }else {
+                let index = 0
+                let previous = null
+                while (index++ <position){
+                    current = previous
+                    current =current.next
+                }
+                previous.next = current.next
+            }
+            this.length -= 1
+            return current.data
+        }
+        LinkedLine.prototype.remove = function (data){
+            let position = this.indexOf(data)
+            return this.removeAt(position)
+        }
+        LinkedLine.prototype.isEmpty = function (){
+            return this.length == 0
+        }
+        LinkedLine.prototype.size = function (){
+            return this.length
+        }
+        //返回首元节点
+        LinkedLine.prototype.getHead = function(){
+            return this.head
+        }
+
+        //输出链表
+        LinkedLine.prototype.print = function () {
+            let current = this.head
+            let arr = [];
+            while (current){
+                arr.push(current.data);
+                current = current.next
+            }
+            return arr
+        }
+
+        //返回指定节点
+        LinkedLine.prototype.search = function (data) {
+            let current = this.head
+            while (current){
+                if (current.data === data){
+                    return current
+                }
+                current = current.next
+            }
+            return  null;
+        }
+
+        //节点标记法判断是否有环
+        LinkedLine.prototype.has = function(){
+            let current = this.head
+            if (!current || !current.next) return false
+            while (current){
+                if (current.flag) return  true
+                current.flag = true
+                current = current.next
+            }
+            return false
+
+            // let current = this.head
+            // return hasCycle(current)
+        }
+    }
+    let list = new LinkedLine()
+    list.append('1')
+    list.append('2')
+    list.append('3')
+    list.append('4')
+    list.append('5')
+    list.append('6')
+
+    //创建环
+    list.search("4").next = list.search("3");
+    console.log(list);
+
+
+    //节点标记法判断是否有环
+    // var hasCycle = function(head){
+    //     if (!head || !head.next) return false
+    //     while (head){
+    //         if (head.flag) return  true
+    //         head.flag = true
+    //         head = head.next
+    //     }
+    //     return false
+    // }
+    console.log(list.has());
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var arr = [1,2,[3,4,5,[6,7,8],9],10,[11,12]];
+
+    function fn(arr){
+        let arr1 = [];
+        arr.forEach(val => {
+            if (val instanceof Array){
+                arr1 = arr1.concat(fn(val))
+            }else {
+                arr1.push(val)
+
+
+            }
+        })
+        return arr1
+    }
+
+    console.log(fn(arr));
+
+
+    // var arr = [1,2,3,4,[5,6,[7,8,[9]]]]
+    // let a =  arr.flat(Infinity)
+    // console.log(    a)
+
+// 下面方法更为简单
+    var arr = [1, 2, [3, 4, [5, 6, [7], 8], 9, 10], 11];
+
+    // 扁平化数组，[1,2, 3 ……, 11]
+    // 递归
+    var resultArr = [];
+
+    function change(item) {
+        if (Array.isArray(item)) {
+            // 传入的item是数组，则遍历每项，递归
+            for (let i = 0; i < item.length; i++) {
+                change(item[i])
+            }
+        } else {
+            // 这项不是数组
+            resultArr.push(item);
+        }
+    }
+
+    change(arr);
+    console.log(resultArr);
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        canvas {
+            border: dashed 2px #CCC
+        }
+    </style>
+</head>
+
+<body>
+    <!-- arc(float x,float y,float radius,float startAngle,float endAngle,boolean counterclockwise)	
+        向 canvas 的当前路径上添加一段弧。绘制以 x ， y 为圆心，radius 为半径，从 startAngle 角度开始，
+        到 endAngle 角度结束的圆弧。startAngle 和 endAngle 以角度为单位。 -->
+    <!-- arcTo(float x1,float x2,float y1,float y2,float radius)	
+        向 canvas 的当前路径上添加一段弧。与上一个方法不同的地方只是定义弧的方式不同。 -->
+    <!-- bezierCurveTo(float cpX1, float cpY1, float cpX2, float cpY2, float x, float y)	
+        在当前路径上添加一段贝塞尔曲线 -->
+    <!-- quadraticCurveTo(float cpX, float cpY,float x,float y)
+        向 canvas 当前路径添加一段二次贝塞尔曲线 -->
+    <!-- rect(float x, float y,float width, float height)	
+        向 canvas 的当前路径上添加一个矩形 -->
+
+
+    <canvas id="canvas_1" width="400px" height="300px"> 当前浏览器不支持 canvas</canvas>
+    <script type="text/javascript">
+        // var can = document.getElementById("can");
+        // var ctx = can.getContext("2d");
+        function creatStar(context, n, dx, dy, size) {
+            // 开始创建路径
+            context.beginPath();
+            var dig = Math.PI / n * 4;
+            context.moveTo(dx, y + dy);
+            for (var i = 0; i <= n; i++) {
+                var x = Math.sin(i * dig);
+                var y = Math.cos(i * dig);
+                // 绘制从当前点连接到指定点的线条
+                context.lineTo(x * size + dx, y * size + dy);
+            }
+            // 关闭路径
+            context.closePath();
+        }
+
+        // 获取 canvas 元素对应的 DOM 对象
+        var canvas_1 = document.getElementById("canvas_1");
+
+        // 获取在 canvas 上绘图的 canvasRenderingContent2D 对象
+        var ctx = canvas_1.getContext("2d");
+
+        // 绘制三角星
+        creatStar(ctx, 3, 60, 60, 50);
+        ctx.fillStyle = '#f00';
+        ctx.fill();
+        // 绘制五角星
+        creatStar(ctx, 5, 160, 60, 50);
+        ctx.fillStyle = '#0f0';
+        ctx.fill();
+        // 绘制七角星
+        creatStar(ctx, 7, 260, 60, 50);
+        ctx.fillStyle = '#00f';
+        ctx.fill();
+        // 绘制九角星
+        creatStar(ctx, 9, 360, 60, 50);
+        ctx.fillStyle = '#f0f';
+        ctx.fill();
+
+    </script>
+</body>
+
+</html>

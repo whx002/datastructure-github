@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<div class="box">
+</div>
+</style>
+
+<body>
+    <script>
+
+        let aray = [2, 1, 9, 3, 1]
+        var rob = function (nums) {
+            /**
+             * @nums 数组
+             * return
+             * 小于2    直接去第一个 或者  0   可能有可能没有
+             * 定义一个新数组   组成[第一个,取最大第一个||第二个] 
+             * for循环 k=2  k<len
+             * 新数组[k]   =  最大的（前2个 + 当前的k）|| 当前的-1
+             * return  
+            */
+            var len = nums.length;
+            if (len < 2) {
+                return nums[len - 1] ? nums[len - 1] : 0;
+            }
+            var current = [nums[0], Math.max(nums[0], nums[1])];
+            //    [2,7]         2                 2  ||   7
+            for (var k = 2; k < len; k++) {
+                current[k] = Math.max(current[k - 2] + nums[k], current[k - 1]);
+                //current[2]
+                //  11      =           (2   +  9)           ||         7
+                //current[3]
+                //  11      =           (7   +  3)           ||         11
+            }
+            return current[len - 1];
+        };
+        let a = rob(aray);
+        console.log(a);
+    </script>
+</body>
+
+</html>

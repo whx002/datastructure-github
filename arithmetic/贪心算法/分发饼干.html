@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let g = [2, 3, 5, 8];
+        let s = [1, 2, 3, 4] // 饼干数组
+        var findContentChildren = function (g, s) {
+            g.sort((a, b) => a - b);
+            s.sort((a, b) => a - b);
+            let cookie = 0;
+            let child = 0
+            let num = 0
+            while (cookie < s.length && child < s.length) {
+                if (s[cookie] >= g[child]) {
+                    child++
+                    num++
+                }
+                cookie++
+            }
+            return num;
+        };
+        // var findContentChildren = function (g, s) {
+        //     g.sort((a, b) => a - b);  // 胃口数组，前减后，就是升序，反之就是降序
+        //     s.sort((a, b) => a - b);  // 饼干数组
+        //     let i = 0;
+        //     s.forEach(n => {
+        //         if (n >= g[i]) {
+        //             i++;
+        //         }
+        //     });
+        //     return i;
+        // };
+        let a = findContentChildren(g, s)
+        console.log(a);
+
+    </script>
+</body>
+
+</html>

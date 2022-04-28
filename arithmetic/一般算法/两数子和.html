@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let array = [1,7,9,11]
+    let target = 20
+    function total(arr,target) {
+
+        for (let i = 0; i < arr.length; i++) {
+            for (let j = i + 1; j < arr.length; j++){
+                if (arr[i] + arr[j] === target) {
+                    return[i,j]
+                }
+            }
+        }
+    }
+    let a = total(array,target);
+    console.log(a);
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>520，我想对你说</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    body {
+        height: 100vh;
+        background: radial-gradient(ellipse at bottom,
+                #1b2735 0, #090a0f 100%);
+        filter: drop-shadow(0 0 10px white);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .snow {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #fff;
+        position: absolute;
+    }
+
+    .words {
+        position: fixed;
+        left: 50%;
+        top: 30%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-size: 1.5em;
+        line-height: 2em;
+        font-weight: 500;
+        display: flex;
+        flex-wrap: wrap;
+        width: 1000px;
+
+    }
+
+    .img-con {
+        width: 100%;
+        height: 200px;
+        text-align: center;
+        position: fixed;
+        top: 50%;
+        display: none;
+    }
+
+    .img-con>img {
+        width: 300px;
+    }
+
+    .words span {
+        animation: jumpin 0.5s ease-out both;
+
+    }
+
+    @keyframes jumpin {
+        from {
+            transform: translateY(-20%);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+</style>
+
+<body>
+    <p class="words">
+        ****年**月**日，是我第一次遇见你。
+        天也欢喜，地也欢喜，人也欢喜，欢喜你遇见了我，我也遇见了你。
+        偷偷在草稿纸上写你名字的人是我，下雪时偷偷在雪地里写你名字的是我，
+        对反光镜哈气写你名字的是我，为了和你偶遇不惜绕路的是我，想为你瘦下来的是我，可是不知道的是你。
+        余生我只想和你看雪看星星看月亮，从诗词歌赋谈到人生理想。明月照回湖心，野鹤奔向闲云，而我慢慢步入你。
+    </p>
+    <a href="./2.html">
+        <div class="img-con">
+            <img src="./images/1.jpg" />
+        </div>
+    </a>
+
+</body>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    $(function () {
+        var words = $(".words").text().split("");
+        // 查看文字
+        console.log(words);
+        $(".words").empty();
+        words.forEach((w, i) => {
+            // 属性定义动画于何时开始，即从动画应用在元素上到动画开始的这段时间的长度。
+            $(`<span>${w}</span>`).css({
+                "animation-delay": 0.1 * i + 's'
+            }).appendTo($(".words"));
+        });
+        for (var i = 0; i < 200; i++) {
+            var x = Math.random() * 100;
+            var y = Math.random() * 100;
+            // 大于0 小于1的随机数
+            console.log(scale)
+
+            var scale = Math.random();
+            var opacity = Math.random();
+            var t1 = Math.random() * 20 + 10;
+            var t2 = Math.random() * 30;
+
+            var o = Math.random() * 20 - 10;
+            var x1 = x + o;
+            var x2 = x + o / 2;
+
+            // 随机数产生雪花 以及大小
+            $(`<style> @keyframes fall${i} {
+	       ${y}%{
+	           transform: translate(${x1}vw, ${y}vh) scale(${scale});
+	       }
+	       to{
+	           transform: translate(${x2}vw,100vh) scale(${scale});
+	       }
+	   }
+	</style>`).appendTo($("head"));
+
+            $('<div class="snow"></div>')
+                .css({
+                    "transform": `translate(${x}vw, -10px) scale(${scale})`,
+                    "opacity": opacity,
+                    "animation": `fall${i} ${t1}s -${t2}s linear infinite`
+                }).appendTo($("body")).end()
+            setTimeout(() => {
+                $(".img-con").fadeIn(2000);
+            }, 23000)
+        }
+    })
+</script>
+
+</html>

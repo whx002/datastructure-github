@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var bar = {
+        myName: "bar",
+        printName: function () {
+            console.log(myName); //myName = global 没有用this.myName 所以无法获取bar.myname
+            console.log(this);
+        }
+    }
+    function foo() {
+        let myName = "foo";  //如果没用声明 就会作用于全局  myName = "foo"
+        return bar.printName;
+    }
+    let myName = "global";
+    let _printName = foo();
+    _printName();//相当于在全局中调用函数,
+    bar.printName();
+
+
+</script>var
+
+</body>
+</html>

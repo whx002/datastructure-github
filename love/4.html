@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .zp-box {
+            user-select: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 460px;
+            height: 460px;
+
+
+        }
+
+        /* 抽奖按钮 */
+        .start-btn {
+            display: inline-block;
+            background: #f53737;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 2;
+
+
+        }
+
+        .start-btn::before {
+            content: "";
+            width: 0;
+            height: 0;
+            border: 40px solid transparent;
+            border-top: 60px solid transparent;
+            border-bottom: 60px solid #f53737;
+            position: absolute;
+            top: -100px;
+            z-index: -1;
+        }
+
+        /* 盘子样式 */
+        .panzi {
+            overflow: hidden;
+            border-radius: 50%;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 10px solid #f74e4e;
+            box-sizing: border-box;
+
+
+        }
+
+        /* 每个奖项的样式 */
+        .panzi .jiang {
+            position: absolute;
+
+
+
+
+        }
+
+        .panzi .jiang .title {
+            font-weight: bold;
+            font-size: 18px;
+            color: #3b3b3b;
+        }
+
+        .panzi .jiang .img {
+            margin: 10px auto;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            border: 2px dashed #f87373;
+            overflow: hidden;
+            color: white;
+
+
+        }
+
+        .panzi .jiang .img img {
+            height: 100%;
+        }
+
+        .panzi .bck-box {
+            overflow: hidden;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            /* background: blue; */
+            border-radius: 50%;
+
+
+        }
+
+        ，
+
+        /* 转盘扇形背景 */
+        .panzi .bck-box .bck {
+            box-sizing: border-box;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+
+            opacity: 1;
+            top: -50%;
+            left: 50%;
+            transform-origin: 0% 100%;
+            /* // transform:skew(30deg); */
+        }
+
+        /* 转盘背景色 */
+        .bck-box .bck:nth-child(2n) {
+            background: #fffcb9;
+        }
+
+        .bck-box .bck:nth-child(2n + 1) {
+            background: #f8a281;
+            box-shadow: 0 0 5px red;
+        }
+
+        /* 下面的css样式为每个奖品的旋转动画，这里写了对应8个奖品的动画，如果想要更多的话，可以添加 */
+        /* 例如： .wr8  @keyframes play8 */
+        .wr0,
+        .wr1,
+        .wr2,
+        .wr3,
+        .wr4,
+        .wr5,
+        .wr6,
+        .wr7 {
+            animation-duration: 3s;
+            animation-timing-function: ease;
+            animation-fill-mode: both;
+            animation-iteration-count: 1;
+        }
+
+        .wr0 {
+            animation-name: play0;
+        }
+
+        .wr1 {
+            animation-name: play1;
+        }
+
+        .wr2 {
+            animation-name: play2;
+        }
+
+        .wr3 {
+            animation-name: play3;
+        }
+
+        .wr4 {
+            animation-name: play4;
+        }
+
+        .wr5 {
+            animation-name: play5;
+        }
+
+        .wr6 {
+            animation-name: play6;
+        }
+
+        .wr7 {
+            animation-name: play7;
+        }
+
+        @keyframes play0 {
+            to {
+                transform: rotate(calc(5 * 360deg + 360deg / var(--nums) * 0));
+            }
+        }
+
+        @keyframes play1 {
+            to {
+                transform: rotate(calc(5 * 360deg + 360deg / var(--nums) * 1));
+            }
+        }
+
+        @keyframes play2 {
+            to {
+                transform: rotate(calc(5 * 360deg + 360deg / var(--nums) * 2));
+            }
+        }
+
+        @keyframes play3 {
+            to {
+                transform: rotate(calc(5 * 360deg + 360deg / var(--nums) * 3));
+            }
+        }
+
+        @keyframes play4 {
+            to {
+                transform: rotate(calc(5 * 360deg + 360deg / var(--nums) * 4));
+            }
+        }
+
+        @keyframes play5 {
+            to {
+                transform: rotate(calc(5 * 360deg + 360deg / var(--nums) * 5));
+            }
+        }
+
+        @keyframes play6 {
+            to {
+                transform: rotate(calc(5 * 360deg + 360deg / var(--nums) * 6));
+            }
+        }
+
+        @keyframes play7 {
+            to {
+                transform: rotate(calc(5 * 360deg + 360deg / var(--nums) * 7));
+            }
+        }
+    </style>
+    <style>
+        .pyx {
+            width: 200px;
+            height: 200px;
+        }
+
+        .hg {
+            width: 200px;
+            height: 200px;
+        }
+
+        .whx {
+            display: inline-block;
+            vertical-align: top;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<div class="body">
+    <div class="overall" v-if='isShow'>
+        <div>我就问你敢不敢？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？</div>
+        <div class="zp-box">
+            <div class="panzi">
+                <div class="bck-box" :style="` transform: rotate(${-90+180/list.length}deg)`">
+                    <div class="bck" v-for="(i,index) in list" :key="index"
+                        :style="`transform: rotate(${-index*360/list.length}deg) skew(${-90 + 360/list.length}deg);`">
+                    </div>
+                </div>
+                <div class="jiang" :style="`transform: rotate(${-index*360/list.length}deg) translateY(-150px);`"
+                    v-for="(i,index) in list" :key="index">
+                    <span class="title">{{i.title}}</span>
+                    <div class="img">
+                        <!-- <img src="@/assets/img/bck.jpg" alt /> -->
+                        img{{index}}
+                    </div>
+                </div>
+            </div>
+            <div class="start-btn" @click="start()">谁是老大</div>
+        </div>
+    </div>
+
+    <div v-if='!isShow'>
+
+        <label>
+            谁是这个世界上最帅的人，请点击选择
+        </label>
+        <div>提示:武**</div>
+        <div>
+            <img class="pyx"
+                src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fnimg.ws.126.net%2F%3Furl%3Dhttp%3A%2F%2Fdingyue.ws.126.net%2F2021%2F0818%2Fa37ad7acj00qy0zqt0011c000hs00gzc.jpg%26thumbnail%3D650x2147483647%26quality%3D80%26type%3Djpg&refer=http%3A%2F%2Fnimg.ws.126.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1643354894&t=c292fa798afb94a563829b159f3a7842"
+                alt="" @click.prevent='handle("1")'>
+            <img class="hg"
+                src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fx0.ifengimg.com%2Fucms%2F2021_18%2FD63FE6438904AEEB8995A3F0D7C371368FCA7526_size43_w640_h360.jpg&refer=http%3A%2F%2Fx0.ifengimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1643354976&t=e8203756903e17e7793589ec46045778"
+                alt="" @click.prevent='handle("2")'>
+            <div class="whx" @click='handle("3")'>
+
+
+                <img src="" alt="（武海鑫）长得太丑没有图片">
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+</div>
+
+<body>
+    <script src="https://cdn.bootcdn.net/ajax/libs/sass.js/0.9.9/sass.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.14/vue.min.js"></script>
+    <script>
+        var cardBagList = new Vue({
+            el: '.body',
+            data: {
+                isShow: false,
+                winner: 2, //指定获奖下标 specified为true时生效
+                specified: false, //是否指定获奖结果，false时为随机
+                loading: false, //抽奖执行状态，防止用户多次点击
+                panziElement: null,
+
+                list: [
+                    {
+                        title: "武海鑫"
+                    },
+                    {
+                        title: "古丽扎尔"
+                    },
+                ]
+
+            },
+            methods: {
+                handle(flag) {
+                    if (flag === '1') {
+                        alert(`在给你一次机会，请重新选择`)
+                    } else if (flag === '2') {
+                        alert(`当个人把，求求了`)
+                    } else {
+                        alert('恭喜你答对了，我也这么觉得')
+                        this.isShow = true
+                    }
+                },
+                start() {
+                    if (!this.loading) {
+                        this.panziElement = document.querySelector(".panzi");
+                        this.panziElement.classList.remove(this.animationClass);
+                        if (this.specified) {
+                            //此处可指定后端返回的指定奖品
+                            // this.winner = this.winner
+                            this.winCallback();
+                        } else {
+                            this.winner = this.random(0, this.list.length - 1);
+                            this.winCallback();
+                        }
+                        this.loading = true;
+                    }
+                },
+                //中奖返回方法
+                winCallback() {
+                    setTimeout(() => {
+                        /* 此处是为了解决当下次抽中的奖励与这次相同，动画不重新执行的 */
+                        /* 添加一个定时器，是为了解决动画属性的替换效果，实现动画的重新执行 */
+                        this.panziElement.classList.add(this.animationClass);
+                    }, 0);
+                    // 因为动画时间为 3s ，所以这里3s后获取结果，其实结果早就定下了，只是何时显示，告诉用户
+                    setTimeout(() => {
+                        this.loading = false;
+                        alert('别说嫰些，叫吧，愿赌服输')
+                    }, 3000);
+                },
+                //随机一个整数的方法
+                random(min, max) {
+                    const totle = Math.ceil(Math.random() * 10000);
+                    console.log(totle);
+                    if (totle <= 1000000) {
+                        return 0;
+                    } else {
+                        return 1;
+                    }
+                    // let num = parseInt(Math.random() * (max - min + 1) + min);
+                    // return totle;
+                }
+
+            },
+            mounted: function () {
+                let root = document.querySelector(":root");
+                root.style.setProperty("--nums", this.list.length);
+            },
+            computed: {
+                animationClass() {
+                    //对应css样式中定义的class属性值,如果有更多的话可以继续添加  case 8:   return 'wr8'
+                    switch (this.winner) {
+                        case 0:
+                            return "wr0";
+                        case 1:
+                            return "wr1";
+                    }
+                }
+            },
+        });
+    </script>
+
+
+</body>
+
+</html>

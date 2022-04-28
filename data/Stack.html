@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    function Stack() {
+        this.items = []
+        Stack.prototype.push = function (element){
+            this.items.push(element)
+        }
+        Stack.prototype.pop = function (){
+            return this.items.pop()
+        }
+        Stack.prototype.peek = function (){
+            return this.items[this.items.length-1]
+        }
+        Stack.prototype.isEmpty = function (){
+            return this.items.length == 0
+        }
+        Stack.prototype.size = function (){
+            return this.items.length
+        }
+        Stack.prototype.toString = function (){
+            let resulString = ''
+            for (let i = 0;i < this.items.length;i++){
+                resulString += this.items[i] + ' '
+            }
+            return resulString
+        }
+
+    }
+    // let stack = new Stack()
+    // stack.push(20)
+    // stack.push(10)
+    // stack.push(30)
+    // stack.push(40)
+    // stack.push(50)
+    // alert(stack)
+    // alert(stack.pop(20))+
+    // alert(stack.size())
+    // alert(stack.peek())
+    function dec2bin(decNumber){
+        let stack = new Stack()
+        while (decNumber>0){
+            stack.push(decNumber % 2)
+            decNumber = Math.floor(decNumber / 2)
+        }
+        let binarySting = ''
+        while (!stack.isEmpty()){
+            binarySting +=stack.pop()
+        }
+        return binarySting
+    }
+    alert(dec2bin(302973))
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+    <script>
+        function BinarySerachTree(key) {
+            function Node(key) {
+                this.key = key
+                this.left = null
+                this.right = null
+            }
+            this.root = null
+            BinarySerachTree.prototype.inset = function (key) {
+                var newNode = new Node(key)
+                if (this.root === null) {
+                    this.root = newNode
+                } else {
+                    this.insetNode(this.root, newNode)
+                }
+            }
+            BinarySerachTree.prototype.insetNode = function (node, newNode) {
+
+                if (newNode.key < node.key) {
+                    if (node.left === null) {
+                        node.left = newNode
+                    } else {
+                        this.insetNode(node.left, newNode)
+                    }
+                } else {
+                    if (node.right === null) {
+                        node.right = newNode
+                    } else {
+                        this.insetNode(node.right, newNode)
+                    }
+                }
+            }
+        }
+        var bst = new BinarySerachTree()
+        bst.inset(15)
+        bst.inset(10);
+        bst.inset(18)
+        bst.inset(11);
+        bst.inset(20)
+        console.log(bst)
+
+        var preorderTraversal = function (root, res = []) {
+            if (!root) return res;
+            res.push(root.key);
+            preorderTraversal(root.left, res)
+            preorderTraversal(root.right, res)
+            return res;
+        };
+        let c = preorderTraversal(bst.root)
+        console.log(c);
+
+
+        // var preorderTraversal2 = function (root) {
+        //     let res = [];
+        //     const dfs = function (root) {
+        //         if (root === null) return;
+        //         //先序遍历所以从父节点开始
+        //         res.push(root.key);
+        //         //递归左子树
+        //         dfs(root.left);
+        //         //递归右子树
+        //         dfs(root.right);
+        //     }
+        //     //只使用一个参数 使用闭包进行存储结果
+        //     dfs(root);
+        //     return res;
+        // };
+        // let a = preorderTraversal2(bst.root)
+        // console.log(a);
+
+    </script>
+</body>
+
+</html>

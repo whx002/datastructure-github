@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function getNumTotal(array, n, sum, temp) {
+            //     /**
+            //       * @array  数组
+            //       * @n  n个数
+            //       * @sum  总和
+            //       * @temp  组成的数组总和位sum
+            //       * @return
+            //       * 判断 新数组的长度 等于总个数的等于n  判断计算是否等于 sum  等于返回数组 不等于退出递归
+            //       * for循环  删除第一位（指针）数字  添加（指针）在新的数组中  递归调用  判断递归函数返回的值
+            //       * 删除新数组最后一个   把指针添加旧数组
+            //       */
+            if (temp.length === n) {
+                if (temp.reduce((prev, item) => prev + item) === sum) {
+                    return temp
+                }
+                return
+            }
+            for (let i = 0; i < array.length; i++) {
+                let current = array.shift()
+                temp.push(current)
+                let result = getNumTotal(array, n, sum, temp)
+                if (result) {
+                    return result
+                }
+                temp.pop()
+                array.push(current)
+            }
+        }
+        let array = [1, 2, 3, 4, 5, 6]
+        console.log(getNumTotal(array, 3, 10, []));
+        // 旧删  新加  递归 新删最后  旧加
+    </script>
+
+</body>
+
+</html>

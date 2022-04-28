@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // let string = 'abcabcabc'
+    // function longString (s) {
+    //     var res = 0; // 用于存放当前最长无重复子串的长度
+    //     var str = ""; // 用于存放无重复子串
+    //     for(var i = 0; i < s.length; i++) {
+    //         var char = s.charAt(i);
+    //         var index = str.indexOf(char);
+    //         if(index === -1) {
+    //             str += char;
+    //             res = res < str.length ? str.length : res;
+    //         } else {
+    //             str = str.substr(index + 1) + char;
+    //         }
+    //     }
+    //     return res;
+    // }
+    // let a = longString(string);
+    // console.log(a);
+
+
+
+
+
+    // 题目：寻找字符串中连续重复出现的最长字符
+    var str = 'abccccccddddeeeeeababababababab';
+    // 指针
+    var i = 0;
+    var j = 1;
+    // 此时遇见过的重复次数做多的字符
+    var maxChar = '';
+    // 此时遇见过的重复次数做多的次数
+    var maxCount = 0;
+
+    while (i < str.length) {
+        if (str[i] != str[j]) {
+            // 如果两个指针指向的字符不同，那么i追上j，j后移
+            // 当然，别着急让i追上j，因为此时i和j之间的字符完全相同的
+            console.log('报！！！！' + i + '和' + j + '之间的内容相同，都是' + str[i]);
+            // 此时就要比较一下，看看j - i是不是大于此时的最大值，如果大，那么它变为最大值。即，你比国王还大，你就是新国王。
+            if (j - i > maxCount) {
+                maxCount = j - i;
+                maxChar = str[i];
+            }
+            // 让i追上j
+            i = j;
+        }
+        // 不管怎么样，j都要后移
+        j++;
+    }
+
+    // 输出结果
+    console.log(`总结果是，重复次数最多的是${maxChar}，它重复了${maxCount}遍`);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let array = [0,1,1,0,1,0,1,0,1,1,1,1,0,0,1]
+    let i = 0
+    let j = 1
+    let island = 0
+    while (i < array.length) {
+        if (array[i] !== array[j]) {
+            // console.log( `海洋为${i} 陆地为${j} ${j-i}`);
+            // console.log(array[i]);
+            if (array[i] === 1) {
+                island += 1
+            }
+            i=j
+        }
+        j++
+    }
+    console.log(island);
+
+    //直接一步完成
+    // var count = arr.join('').match(/1+/g).length;
+</script>
+</body>
+</html>

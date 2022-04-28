@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+
+<body>
+
+    <script>
+        function BinarySerachTree(key) {
+            function Node(key) {
+                this.key = key
+                this.left = null
+                this.right = null
+            }
+            this.root = null
+            BinarySerachTree.prototype.inset = function (key) {
+                var newNode = new Node(key)
+                if (this.root === null) {
+                    this.root = newNode
+                } else {
+                    this.insetNode(this.root, newNode)
+                }
+            }
+            BinarySerachTree.prototype.insetNode = function (node, newNode) {
+
+                if (newNode.key < node.key) {
+                    if (node.left === null) {
+                        node.left = newNode
+                    } else {
+                        this.insetNode(node.left, newNode)
+                    }
+                } else {
+                    if (node.right === null) {
+                        node.right = newNode
+                    } else {
+                        this.insetNode(node.right, newNode)
+                    }
+                }
+            }
+
+            BinarySerachTree.prototype.preOrderTraversal = function (handler) {
+                this.preOrderTraversalNode(this.root, handler)
+            }
+            BinarySerachTree.prototype.preOrderTraversalNode = function (node, handler) {
+                if (node !== null) {
+                    handler(node.key)
+                    this.preOrderTraversalNode(node.left, handler)
+                    this.preOrderTraversalNode(node.right, handler)
+                }
+
+            }
+            BinarySerachTree.prototype.midOrderTraversal = function (handler) {
+                this.midOrderTraversalNode(this.root, handler)
+            }
+            BinarySerachTree.prototype.midOrderTraversalNode = function (node, handler) {
+                if (node !== null) {
+                    this.midOrderTraversalNode(node.left, handler)
+                    handler(node.key)
+                    this.midOrderTraversalNode(node.right, handler)
+                }
+
+            }
+            BinarySerachTree.prototype.postOrderTraversal = function (handler) {
+                this.postOrderTraversalNode(this.root, handler)
+            }
+            BinarySerachTree.prototype.postOrderTraversalNode = function (node, handler) {
+                if (node !== null) {
+                    this.postOrderTraversalNode(node.left, handler)
+
+                    this.postOrderTraversalNode(node.right, handler)
+                    handler(node.key)
+                }
+
+            }
+            BinarySerachTree.prototype.min = function () {
+                var node = this.root
+                var key = null
+                while (node !== null) {
+                    key = node.key
+                    node = node.left
+                }
+                return key
+            }
+            BinarySerachTree.prototype.max = function () {
+                var node = this.root
+                while (node !== null) {
+                    key = node.key
+                    node = node.right
+                }
+                return key
+            }
+            BinarySerachTree.prototype.search = function (key) {
+                var node = this.root
+                while (node !== null) {
+                    if (key < node.key) {
+                        key = key.left
+                    } else if (key > node.key) {
+                        key = key.right
+                    } else {
+                        return true
+                    }
+                }
+                return false
+            }
+            BinarySerachTree.prototype.remove = function (key) {
+                var current = this.root
+                var parent = null
+                var isLeftChild = true
+                while (current.key !== key) {
+                    parent = current
+                    if (key < current.key) {
+                        isLeftChild = true
+                        current = current.left
+                    } else {
+                        isLeftChild = false
+                        current = current.right
+                    }
+                    if (current === null) return false
+                }
+                if (current.left === null && current.right === null) {
+                    //删除的节点是叶子节点(没有子节点)
+                    if (current === this.root) {
+                        this.root = null;
+                    } else if (isLeftChild) {
+                        parent.left = null
+                    } else {
+                        parent.right = null
+                    }
+                } else if (current.right === null) {//删除的节点是叶子节点(没有子节点)
+                    if (current === this.root) {
+                        this.root = current.left
+                    } else if (isLeftChild) {
+                        parent.left = current.left
+                    } else {
+                        parent.right = current.left
+                    }
+                } else if (current.left === null) {//删除的节点是叶子节点(没有子节点)
+                    if (current === this.root) {
+                        this.root = current.right
+                    } else if (isLeftChild) {
+                        parent.left = current.right
+                    } else {
+                        parent.right = current.right
+                    }
+                }
+                //删除的节点有2个子节点
+                else {
+                    //后继
+                    var successor = this.getSuccssor(current)//删除的节点
+                    if (current === this.root) {
+                        this.root = successor
+                    } else if (isLeftChild) {
+                        parent.left = successor
+                    } else {
+                        parent.right = successor
+                    }
+
+                    successor.left = current.left
+                }
+            }
+            //找后继方法
+            BinarySerachTree.prototype.getSuccssor = function (delNode) {
+                //定义变量,保存早到的结果
+                var successor = delNode
+                var current = delNode.right
+                var successorParent = delNode
+
+                while (current !== null) {
+                    successorParent = successor
+                    successor = current
+                    current = current.left
+                }
+                if (successor !== delNode.right) {
+                    successorParent.left = successor.right
+                    successor.right = delNode.right
+                }
+                return successor//后继
+            }
+        }
+
+        var bst = new BinarySerachTree()
+        bst.inset(15)
+        bst.inset(10);
+        bst.inset(18)
+        bst.inset(8);
+        bst.inset(9)
+        console.log(bst)
+        var resultString = []
+        bst.preOrderTraversal(function (key) {
+            resultString.push(key + "")
+        })
+        console.log(resultString);
+    </script>
+</body>
+
+</html>

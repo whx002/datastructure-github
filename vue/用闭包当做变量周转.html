@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //（面试常考）用闭包当做周转变量
+    // 让某个数据的某个属性值，变成响应式的
+    function defineReactive(obj, prop, temp = obj[prop]) {
+// 定义obj对象的a属性的隐藏属性
+        Object.defineProperty(obj, prop, {
+            set(newValue) {
+                console.log('setter');
+                temp = newValue;
+            },
+            get() {
+                console.log('getter');
+                return temp;
+            }
+        });
+    };
+
+    // 让obj的a属性变为响应式的
+    defineReactive(obj, 'a');
+    obj.a++;
+    obj.a++;
+    obj.a++;
+    obj.a++;
+    console.log(obj.a);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    function Queue(){
+        this.items = []
+        Queue.prototype.enqueue = function (element){
+            this.items.push(element)
+        }
+        Queue.prototype.dequeue = function (){
+            return this.items.shift()
+        }
+        Queue.prototype.front = function (){
+            return this.items[0]
+        }
+        Queue.prototype.isEmpty = function (){
+            return this.items.length == 0
+        }
+        Queue.prototype.size = function (){
+            return this.items.length
+        }
+        Queue.prototype.toString = function (){
+            let resulString = ' '
+            for (let i =0;i<this.items.length;i++){
+                resulString += this.items[i] + ' '
+            }
+            return resulString
+        }
+    }
+    // let queue = new Queue()
+    // queue.enqueue('aaa')
+    // queue.enqueue('bbb')
+    // queue.enqueue('ccc')
+    // queue.enqueue('ddd')
+    // alert(queue)
+    // alert(queue.dequeue('aaa'))
+    // alert(queue.front())
+    // alert(queue.isEmpty())
+    // alert(queue.size())
+    function passName(nameList,num){
+        let queue = new Queue()
+        for (let i = 0;i<nameList.length;i++){
+            queue.enqueue(nameList[i])
+        }
+        while (queue.size() > 1){
+            for (let i = 0;i<num-1;i++){
+                queue.enqueue(queue.dequeue())
+            }
+            queue.dequeue()
+        }
+        let endName = queue.front()
+        alert('最后剩下的人'+endName)
+        return nameList.indexOf(endName)
+    }
+    names = ['aa','bb','cc','dd','cc']
+    alert(passName(names,3))
+</script>
+</body>
+</html>

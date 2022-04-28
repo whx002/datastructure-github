@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let array = [1,4,6,8,3,7,9,5,6,66,77,44,88,55,47,67,83,65,89];
+    function quickSort(arr) {
+        if (arr.length < 2){
+            return arr;
+        }
+        let left = []
+        let right = []
+        let content =
+
+        console.log(content);
+        let cIndex = arr[content];
+
+        for (let i = 0; i < arr.length; i++){
+            if(i === content){
+                continue;
+            }
+            if (arr[i] < cIndex){
+                left.push(arr[i])
+            }else {
+                right.push(arr[i])
+            }
+
+        }
+        return quickSort(left).concat(cIndex,quickSort(right))
+
+
+
+    }
+    let a = quickSort(array);
+    console.log(a);
+
+</script>
+</body>
+</html>

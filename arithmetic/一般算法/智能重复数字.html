@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    function smartRepeat(str) {
+        let current = 0
+        let stack1 = [];
+        let stack2 = [];
+        while (current < str.length) {
+            let rest = str.substring(current)
+            if (/^\d+\[/.test(rest)) {
+                console.log(rest);
+                //取出 '3['
+                let fullStr = rest.match(/^(\d+)\[/)[0]
+
+                //取出 '3'
+                let num = Number(rest.match(/^(\d+)\[/)[1])
+                console.log('获得的数字是', num);
+                current += fullStr.length
+
+                //遇见数字[，那么数字进栈1，空字符串进栈2
+                stack1.push(num)
+                stack2.push('')
+
+            } else if (/^[a-z]+/.test(rest)) {
+                //取出来的 直接就是3
+                let str = rest.match(/^[a-z]+/)[0]
+                console.log('取出来的字母',str);
+                current += str.length
+
+                //遇见字母，那么改写栈2栈顶元素为此字母
+                stack2[stack2.length - 1] =str
+
+            } else if(rest[0] === ']' && current <str.length - 1){
+                console.log('取出来的是',rest[0]);
+                current++
+                //遇见]了，那么栈1弹栈， //会把数字弹出来
+                let justNowPopedNumber = stack1.pop();
+
+                //栈2栈顶的这个元素要重复栈1弹出的那么多次，
+                let newWord = stack2[stack2.length - 1].repeat(justNowPopedNumber);
+
+                //栈2弹栈，
+                stack2.pop();
+
+                //将字符串拼接到新栈顶
+                stack2[stack2.length - 1] += newWord;
+            }
+            else if(current === str.length -1){
+                console.log(stack1[0]);
+                return stack2[0].repeat(stack1[0])
+            }
+        }
+    }
+    var result = smartRepeat('3[2[b]4[m]]')
+    console.log(result);
+</script>
+</body>
+
+</html>
